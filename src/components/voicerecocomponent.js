@@ -49,14 +49,23 @@ class VoiceRecocomponent extends Component {
       word = ` ${String(word).charAt(0).toUpperCase() + String(word).slice(1)}`;
     }
     switch (word) {
-      case "kablelis" || "comma":
+      case "kablelis" || "comma" || "кома":
         textField.textContent = textField.textContent + ", ";
         break;
-      case "tarpas" || "space":
+      case "tarpas" || "space" || "розрив":
         textField.textContent = textField.textContent + " ";
         break;
-      case "taškas" || "dot":
+      case "taškas" || "dot" || "крапка":
         textField.textContent = textField.textContent + ". ";
+        break;
+      case "dvitaškis" || "colon" || "товста кишка":
+        textField.textContent = textField.textContent + ": ";
+        break;
+      case "brūkšnys" || "dash" || "тире":
+        textField.textContent = textField.textContent + " - ";
+        break;
+      case "nauja eilutė" || "new line" || "новий рядок":
+        textField.textContent = textField.textContent + "\n";
         break;
       default:
         textField.textContent = textField.textContent + `${word}`;
