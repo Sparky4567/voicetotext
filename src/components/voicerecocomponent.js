@@ -36,6 +36,32 @@ class VoiceRecocomponent extends Component {
     this.changeCode = this.changeCode.bind(this);
   }
 
+  componentDidMount() {
+    window.navigator.mediaDevices.getUserMedia({ audio: true });
+  }
+
+  vocabulary(textField, word) {
+    word = String(word).toLowerCase().trim();
+    let textString = textField.textContent;
+    if (String(textString.slice(-2)).includes(".")) {
+      word = String(word).charAt(0).toUpperCase() + String(word).slice(1);
+    }
+    switch (word) {
+      case "kablelis" || "comma":
+        textField.textContent = textField.textContent + ", ";
+        break;
+      case "tarpas" || "space":
+        textField.textContent = textField.textContent + " ";
+        break;
+      case "taškas" || "dot":
+        textField.textContent = textField.textContent + ". ";
+        break;
+      default:
+        textField.textContent = textField.textContent + ` ${word}`;
+        break;
+    }
+  }
+
   voiceCorder() {
     const textSelector = document.querySelector("#textOutput");
     this.reco.lang = this.state.defaultLanguage;
@@ -43,7 +69,7 @@ class VoiceRecocomponent extends Component {
     this.reco.onresult = (e) => {
       for (var i = e.resultIndex; i < e.results.length; i++) {
         let transcript = e.results[i][0].transcript;
-        textSelector.textContent = textSelector.textContent + " " + transcript;
+        this.vocabulary(textSelector, transcript);
       }
     };
     this.reco.start();
