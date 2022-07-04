@@ -43,8 +43,10 @@ class VoiceRecocomponent extends Component {
   vocabulary(textField, word) {
     word = String(word).toLowerCase().trim();
     let textString = textField.textContent;
-    if (String(textString.slice(-2)).includes(".")) {
+    if (String(textString).trim() === "") {
       word = String(word).charAt(0).toUpperCase() + String(word).slice(1);
+    } else if (String(textString.slice(-2)).includes(".")) {
+      word = ` ${String(word).charAt(0).toUpperCase() + String(word).slice(1)}`;
     }
     switch (word) {
       case "kablelis" || "comma":
@@ -57,7 +59,7 @@ class VoiceRecocomponent extends Component {
         textField.textContent = textField.textContent + ". ";
         break;
       default:
-        textField.textContent = textField.textContent + ` ${word}`;
+        textField.textContent = textField.textContent + `${word}`;
         break;
     }
   }
